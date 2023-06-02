@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ivanxhb.cashcard.CashCardApplicationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-06-02T18:35:09" hostname="HB-XPS" time="1.189">
+  <properties/>
+  <testcase name="shouldReturnACashCardWhenDataIsSaved()" classname="com.ivanxhb.cashcard.CashCardApplicationTests" time="1.15"/>
+  <testcase name="shouldCreateANewCashCard()" classname="com.ivanxhb.cashcard.CashCardApplicationTests" time="0.017"/>
+  <testcase name="shouldNotReturnACashCardWithAnUnknownId()" classname="com.ivanxhb.cashcard.CashCardApplicationTests" time="0.019"/>
+  <system-out><![CDATA[13:35:05.592 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [CashCardApplicationTests]: using SpringBootContextLoader
+13:35:05.600 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ivanxhb.cashcard.CashCardApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+13:35:05.601 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ivanxhb.cashcard.CashCardApplicationTests]: CashCardApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:35:05.632 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [CashCardApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+13:35:05.719 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\Users\ivanh\Documents\workspace\learnSpringBoot\spring-academy\cashcard\build\classes\java\main\com\ivanxhb\cashcard\CashcardApplication.class]
+13:35:05.721 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ivanxhb.cashcard.CashcardApplication for test class com.ivanxhb.cashcard.CashCardApplicationTests
+13:35:05.867 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [CashCardApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+13:35:05.869 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [CashCardApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
+13:35:05.887 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test class com.ivanxhb.cashcard.CashCardApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.2)
+
+2023-06-02T13:35:06.335-05:00  INFO 10312 --- [    Test worker] c.i.cashcard.CashCardApplicationTests    : Starting CashCardApplicationTests using Java 19.0.1 with PID 10312 (started by ivan in C:\Users\ivanh\Documents\workspace\learnSpringBoot\spring-academy\cashcard)
+2023-06-02T13:35:06.338-05:00  INFO 10312 --- [    Test worker] c.i.cashcard.CashCardApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2023-06-02T13:35:07.294-05:00  INFO 10312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-06-02T13:35:07.362-05:00  INFO 10312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61 ms. Found 1 JDBC repository interfaces.
+2023-06-02T13:35:08.042-05:00  INFO 10312 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2023-06-02T13:35:08.055-05:00  INFO 10312 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-06-02T13:35:08.055-05:00  INFO 10312 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-06-02T13:35:08.171-05:00  INFO 10312 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-06-02T13:35:08.174-05:00  INFO 10312 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1792 ms
+2023-06-02T13:35:08.297-05:00  INFO 10312 --- [    Test worker] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:36269222-a62a-418a-a897-6e7c57ec2e8f;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2023-06-02T13:35:09.324-05:00  INFO 10312 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 63661 (http) with context path ''
+2023-06-02T13:35:09.334-05:00  INFO 10312 --- [    Test worker] c.i.cashcard.CashCardApplicationTests    : Started CashCardApplicationTests in 3.401 seconds (process running for 5.216)
+2023-06-02T13:35:10.084-05:00  INFO 10312 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-02T13:35:10.085-05:00  INFO 10312 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-06-02T13:35:10.086-05:00  INFO 10312 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
