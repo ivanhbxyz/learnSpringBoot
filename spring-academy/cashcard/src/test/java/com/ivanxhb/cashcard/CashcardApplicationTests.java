@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URI;
+
 /*
  * Updated during Lab: implementing GET
 @SpringBootTest
@@ -66,6 +68,7 @@ class CashCardApplicationTests {
         assertThat(response.getBody()).isBlank();
     }
 
+	/*
 	@Test
 	void shouldCreateANewCashCard() {
 		CashCard newCashCard = new CashCard(null, 250.00);
@@ -73,6 +76,30 @@ class CashCardApplicationTests {
 		// What is ResponseEntity? what is Void?
 		ResponseEntity<Void> createResponse = restTemplate.postForEntity("/cashcards", newCashCard, Void.class);
 		assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+	*/
+	@Test
+	void shouldCreateANewCashCard() {
+		CashCard newCashCard = new CashCard(null, 250.00);
+		ResponseEntity<Void> createResponse = restTemplate.postForEntity("/cashcards", newCashCard, Void.class);
+
+		assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);// Because per the RFC the POST request shold return a CREATED
+		
+		// We are told that... send a 201(CREATED) response containing a Location header field that provides an identifier for the primary resource created...
+		// That is , When a POST request results in the successful creation of a resource, such a as a new CashCard, the response
+		// should include information for how to retrieve that resource. We'll do this by supplying a URI in a Response Header named "Location"
+		URI locationOfNewCashCard = createResponse.getHeaders().getLocation();
+
+		ResponseEntity<String> getResponse = restTemplate.getForEntity(locationOfNewCashCard, String.class);
+		//we'll use the Location header's information to fetch teh newly created CashCard
+		assertThat(getResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+		// Add assertions such as these
+		DocumentContext documentContext = JsonPath.parse(getResponse.getBody());
+		Number id = documentContext.read("$.id");
+		Double amount = documentContext.read("$.amount");
+		assertThat(id).isNotNull();
+		assertThat(amount).isEqualTo(250.00);
 	}
 
 

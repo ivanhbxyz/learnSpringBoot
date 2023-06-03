@@ -3,10 +3,13 @@ package com.ivanxhb.cashcard.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 import com.ivanxhb.cashcard.CashCard;
@@ -55,7 +58,19 @@ public class CashCardController {
 
 
     @PostMapping
-    private ResponseEntity createCashCard() {
-        return null;
-    }
+    private ResponseEntity<Void> createCashCard(@RequestBody CashCard newCashCardRequest, UriComponentsBuilder ucb) {
+
+        /*
+         Spring Data's CrudRepository provides methods that support creating, reading, updating, and deleting data from a data store. 
+         cashCardRepository.save(newCashCardRequest): saves a new CashCard object, and returns the saved object with a unique id provided by the database.
+        */
+        CashCard savedCashCard = cashCardRepository.save(newCashCardRequest);
+        
+        URI locationOfNewCashCard = ucb // includes a deserialized version of the created object
+            .path("cashcards/{id}") // matches out endpoint design
+            .buildAndExpand(savedCashCard.id())// utilize the created object. instance of CashCard
+            .toUri();
+
+            return ResponseEntity.created(locationOfNewCashCard).build(); // return 201 CREATED with the correct Location header.
+        }
 }
