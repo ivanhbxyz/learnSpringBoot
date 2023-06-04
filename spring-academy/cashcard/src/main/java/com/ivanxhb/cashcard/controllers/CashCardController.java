@@ -72,5 +72,12 @@ public class CashCardController {
             .toUri();
 
             return ResponseEntity.created(locationOfNewCashCard).build(); // return 201 CREATED with the correct Location header.
-        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<Iterable<CashCard>> findAll() {
+        return ResponseEntity.ok(cashCardRepository.findAll());
+    }
+
+    
 }
