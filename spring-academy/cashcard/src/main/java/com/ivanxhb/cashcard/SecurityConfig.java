@@ -22,7 +22,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // Step 5: Configure Basic Authentication
 
-
         /*
          All HTTP request to cashcard/ endpoints are required to be authenticated
          using HTTP Basic Authentication security(username and password)
@@ -30,7 +29,8 @@ public class SecurityConfig {
          */
         http.authorizeHttpRequests()
         .requestMatchers("/cashcards/**")
-        .authenticated()
+        //.authenticated() commented out to enable RBAC
+        .hasRole("CARD-OWNER")
         .and()
         .csrf().disable()
         .httpBasic();
@@ -43,6 +43,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /* 
+    // Commenting out to add a user role property. see below
     @Bean
     public UserDetailsService testOnlyUsers(PasswordEncoder passwordEncoder) {
 
@@ -56,5 +58,27 @@ public class SecurityConfig {
         .build();
         return new InMemoryUserDetailsManager(sarah);
     }
+    */
+
+    @Bean
+    public UserDetailsService testOnlyUsers(PasswordEncoder passwordEncoder) {
+        User.UserBuilder users = User.builder();
+
+        UserDetails sarah = users
+            .username("sarah1")
+            .password(passwordEncoder.encode("abc123"))
+            .roles("CARD-OWNER")
+            .build();
+
+        UserDetails hankOwnsNoCards = users
+            .username("hank-owns-no-cards")
+            .password(passwordEncoder.encode("qrs456"))
+            .roles("NON-OWNER")
+            .build();
+        
+            return new InMemoryUserDetailsManager(sarah, hankOwnsNoCards);
+    }
+
+    
 
 }
