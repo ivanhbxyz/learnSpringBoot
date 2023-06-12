@@ -37,6 +37,11 @@ public class Client {
         return email;
     }
 
+	public String getId() {
+		
+		return id.toString();
+	}
+
 
 
     
