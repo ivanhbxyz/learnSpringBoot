@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ import java.security.Principal;
 import com.ivanxhb.cashcard.CashCard;
 import com.ivanxhb.cashcard.repositories.CashCardRepository;
 
-
 @RestController // Tells Spring that this is a RestController component
 @RequestMapping("/cashcards") // Tells Spring that instances of this class is the endpoint to  HTTP requests to /cashcard.
 
@@ -31,8 +31,6 @@ public class CashCardController {
     public CashCardController(CashCardRepository cashCardRepository) {
         this.cashCardRepository = cashCardRepository;
     }
-
-    
 
     /* 
 	@GetMapping("/{requestedID}") // @GetMapping handles HTTP GET requests. /{requestedID} signals that we Respond to those requests
@@ -64,16 +62,15 @@ public class CashCardController {
         }
     }
 
-
-
     @PostMapping
-    private ResponseEntity<Void> createCashCard(@RequestBody CashCard newCashCardRequest, UriComponentsBuilder ucb) {
+    private ResponseEntity<Void> createCashCard(@RequestBody CashCard newCashCardRequest, UriComponentsBuilder ucb, Principal principal) {
 
         /*
          Spring Data's CrudRepository provides methods that support creating, reading, updating, and deleting data from a data store. 
          cashCardRepository.save(newCashCardRequest): saves a new CashCard object, and returns the saved object with a unique id provided by the database.
         */
-        CashCard savedCashCard = cashCardRepository.save(newCashCardRequest);
+        CashCard cashCardWithOwner = new CashCard(null, newCashCardRequest.amount(), principal.getName());
+        CashCard savedCashCard = cashCardRepository.save(cashCardWithOwner);
         
         URI locationOfNewCashCard = ucb // includes a deserialized version of the created object
             .path("cashcards/{id}") // matches out endpoint design
@@ -101,8 +98,23 @@ public class CashCardController {
                     pageable.getSortOr(Sort.by(Sort.Direction.ASC, "amount"))
             ));
     return ResponseEntity.ok(page.getContent());
-}
+    }
 
+    /*
+    @PutMapping("/{requestedId}")
+    private ResponseEntity<Void> putCashCard(@PathVariable Long requestedId, @RequestBody CashCard cashCardUpdate) {
+    // just return 204 NO CONTENT for now.
+        return ResponseEntity.noContent().build();
+    }
+    */
+
+    @PutMapping("/{requestedId}")
+    private ResponseEntity<Void> putCashCard(@PathVariable Long requestedId, @RequestBody CashCard cashCardUpdate, Principal principal) {
+    CashCard cashCard = cashCardRepository.findByIdAndOwner(requestedId, principal.getName());
+    CashCard updatedCashCard = new CashCard(cashCard.id(), cashCardUpdate.amount(), principal.getName());
+    cashCardRepository.save(updatedCashCard);
+    return ResponseEntity.noContent().build();
+    }
 
     
 }
