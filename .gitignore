@@ -27,3 +27,9 @@ replay_pid*
 **/build
 
 **/bin
+
+# Nodejs
+**/node_modules
+
+# Intellij
+**/.idea

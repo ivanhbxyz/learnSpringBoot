@@ -27,6 +27,7 @@ public class MovieController {
 
     @GetMapping("/{imdbId}")
     public ResponseEntity<Optional<Movie>> getSingleMovie(@PathVariable String imdbId) { // @PathVariable is what accepts the parameter from the user ... via http
+        // What does the return type of Optional mean?, A: That it is possible to return null out of this method.
         return new ResponseEntity<Optional<Movie>>(movieService.singleMovie(imdbId), HttpStatus.OK);
     }
 
